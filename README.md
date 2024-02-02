@@ -1,6 +1,13 @@
 **Battleship Console Game Overview:**
 
-This Java program simulates a simplified version of the Battleship game in a console interface. The game involves a human player and a computer player taking turns to place ships on a 5x5 grid and guess each other's ship locations.
+This Java program implements a simplified version of the classic Battleship game. It consists of two players, a human player, and a computer player. Each player places a fleet of ships on a 5x5 grid and takes turns guessing the coordinates of the opponent's ships. The game continues until all ships of one player are discovered.
+
+### How to Play:
+1. Clone the repository.
+2. Compile and run the `BattleshipConsoleGame.java` file.
+3. Follow the prompts to place your ships and guess the opponent's ships.
+
+Feel free to explore the code and make improvements. Contributions are welcome!
 
 ### Key Features:
 
