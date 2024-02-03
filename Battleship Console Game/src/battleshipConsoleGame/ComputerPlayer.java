@@ -16,7 +16,7 @@ public class ComputerPlayer extends Player {
 		if (locationPendingAttack.isEmpty()) {
 			while(true) {
 				shipCoordinateXandY = getRandomCoordinates();
-				if (attackableLocation(shipCoordinateXandY[0], shipCoordinateXandY[1]))
+				if (attackableLocation(opponentPlayer, shipCoordinateXandY[0], shipCoordinateXandY[1]))
 					break;
 			}
 		}
@@ -30,13 +30,16 @@ public class ComputerPlayer extends Player {
 			
 			locationPendingAttack.clear();
 			// find the remaining ship body to continue attack it
-			if (attackableLocation(shipCoordinateXandY[0] - 1, shipCoordinateXandY[1]))
+			if (attackableLocation(opponentPlayer, shipCoordinateXandY[0] - 1, shipCoordinateXandY[1]))
 				locationPendingAttack.add(new int[] {shipCoordinateXandY[0] - 1, shipCoordinateXandY[1]}); // top
-			if (attackableLocation(shipCoordinateXandY[0] + 1, shipCoordinateXandY[1]))
+			
+			if (attackableLocation(opponentPlayer, shipCoordinateXandY[0] + 1, shipCoordinateXandY[1]))
 				locationPendingAttack.add(new int[] {shipCoordinateXandY[0] + 1, shipCoordinateXandY[1]}); // bottom
-			if (attackableLocation(shipCoordinateXandY[0], shipCoordinateXandY[1] - 1))
+			
+			if (attackableLocation(opponentPlayer, shipCoordinateXandY[0], shipCoordinateXandY[1] - 1))
 				locationPendingAttack.add(new int[] {shipCoordinateXandY[0], shipCoordinateXandY[1] - 1}); // left
-			if (attackableLocation(shipCoordinateXandY[0], shipCoordinateXandY[1] + 1))
+			
+			if (attackableLocation(opponentPlayer, shipCoordinateXandY[0], shipCoordinateXandY[1] + 1))
 				locationPendingAttack.add(new int[] {shipCoordinateXandY[0], shipCoordinateXandY[1] + 1}); // right
 		} else {
 			opponentPlayer.seaGrid[shipCoordinateXandY[0]][shipCoordinateXandY[1]] = BattleshipConsoleGame.ATTACKED_AREA;
@@ -44,13 +47,14 @@ public class ComputerPlayer extends Player {
 		}
 	}
 	
-	private boolean attackableLocation(int x, int y) {
+	private boolean attackableLocation(Player opponentPlayer, int x, int y) {
 		if (!validSeaCoordinate(x, y))
 			return false;
-		if (seaGrid[x][y] == BattleshipConsoleGame.SHIP_ATTACKED_BY_OPPONENT)
-			return false;
-		if (seaGrid[x][y] == BattleshipConsoleGame.ATTACKED_AREA)
-			return false;
-		return true;
+		if (opponentPlayer.seaGrid[x][y] == BattleshipConsoleGame.SHIP_NOT_OCCUPIED)
+			return true;
+		if (opponentPlayer.seaGrid[x][y] == BattleshipConsoleGame.SHIP_OCCUPIED)
+			return true;
+
+		return false;
 	}
 }
